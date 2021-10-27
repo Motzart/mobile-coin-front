@@ -12,11 +12,11 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.OPTIMISM]: '0x90f872b3d8f33f305e0250db6A2761B354f7710A',
   [SupportedChainId.ARBITRUM_ONE]: '0xadF885960B47eA2CD9B55E6DAc6B42b7Cb2806dB',
   [SupportedChainId.ARBITRUM_RINKEBY]: '0xa501c031958F579dB7676fF1CE78AD305794d579',
-  [SupportedChainId.MOBILE_COIN]: '0xee504Ccc614D173c51E9Bea465dbEe260352DeD8',
+  [SupportedChainId.MOBILE_COIN]: '0x7e87a459A751cb25A52d270e81bB1Abc454B38eE',
 }
 
-export const V2_FACTORY_ADDRESSES: AddressMap = constructSameAddressMap('0xF54DF94Bb6924aE63182aE3a00A101bAb6970624')
-export const V2_ROUTER_ADDRESS: AddressMap = constructSameAddressMap('0x968aDDf287ce1590c1E442282556433accdb51e1')
+export const V2_FACTORY_ADDRESSES: AddressMap = constructSameAddressMap('0x495bD5076DB078BD2bB14cFbCC16Eba4E05F65b6')
+export const V2_ROUTER_ADDRESS: AddressMap = constructSameAddressMap('0x73136A73D748a26BAd2131eE3427A3078Ea0E02a')
 
 /**
  * The oldest V0 governance address

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
-import { SupportedChainId } from 'constants/chains'
+//import { SupportedChainId } from 'constants/chains'
 //import useTheme from 'hooks/useTheme'
 import { darken } from 'polished'
 import { useState } from 'react'
@@ -244,7 +244,7 @@ const StyledNavLink = styled(NavLink).attrs({
 // `
 
 export default function Header() {
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   // const [darkMode] = useDarkModeManager()
@@ -290,11 +290,11 @@ export default function Header() {
         >
           <Trans>Pool</Trans>
         </StyledNavLink>
-        {(!chainId || chainId === SupportedChainId.MAINNET) && (
+        {/* {(!chainId || chainId === SupportedChainId.MAINNET) && (
           <StyledNavLink id={`vote-nav-link`} to={'/vote'}>
             <Trans>Vote</Trans>
           </StyledNavLink>
-        )}
+        )} */}
         {/* <StyledExternalLink id={`charts-nav-link`} href={infoLink}>
           <Trans>Charts</Trans>
           <sup>↗</sup>
