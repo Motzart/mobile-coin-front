@@ -4,12 +4,12 @@ import { ExternalLink as LinkIcon } from 'react-feather'
 import { useAppDispatch } from 'state/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
 
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
-import PortisIcon from '../../assets/images/portisIcon.png'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
+//import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
+//import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
+//import PortisIcon from '../../assets/images/portisIcon.png'
+//import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { fortmatic, injected, portis, walletconnect, walletlink } from '../../connectors'
+import { injected, walletlink } from '../../connectors'
 import { SUPPORTED_WALLETS } from '../../constants/wallet'
 import { useActiveWeb3React } from '../../hooks/web3'
 import { clearAllTransactions } from '../../state/transactions/actions'
@@ -17,7 +17,7 @@ import { ExternalLink, LinkStyledButton, TYPE } from '../../theme'
 import { shortenAddress } from '../../utils'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { ButtonSecondary } from '../Button'
-import Identicon from '../Identicon'
+//import Identicon from '../Identicon'
 import { AutoRow } from '../Row'
 import Copy from './Copy'
 import Transaction from './Transaction'
@@ -164,20 +164,20 @@ const WalletName = styled.div`
   color: ${({ theme }) => theme.text3};
 `
 
-const IconWrapper = styled.div<{ size?: number }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  margin-right: 8px;
-  & > img,
-  span {
-    height: ${({ size }) => (size ? size + 'px' : '32px')};
-    width: ${({ size }) => (size ? size + 'px' : '32px')};
-  }
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    align-items: flex-end;
-  `};
-`
+// const IconWrapper = styled.div<{ size?: number }>`
+//   ${({ theme }) => theme.flexColumnNoWrap};
+//   align-items: center;
+//   justify-content: center;
+//   margin-right: 8px;
+//   & > img,
+//   span {
+//     height: ${({ size }) => (size ? size + 'px' : '32px')};
+//     width: ${({ size }) => (size ? size + 'px' : '32px')};
+//   }
+//   ${({ theme }) => theme.mediaWidth.upToMedium`
+//     align-items: flex-end;
+//   `};
+// `
 
 const TransactionListWrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -195,9 +195,9 @@ const WalletAction = styled(ButtonSecondary)`
   }
 `
 
-const MainWalletAction = styled(WalletAction)`
-  color: ${({ theme }) => theme.primary1};
-`
+// const MainWalletAction = styled(WalletAction)`
+//   color: ${({ theme }) => theme.primary1};
+// `
 
 function renderTransactions(transactions: string[]) {
   return (
@@ -244,49 +244,49 @@ export default function AccountDetails({
     )
   }
 
-  function getStatusIcon() {
-    if (connector === injected) {
-      return (
-        <IconWrapper size={16}>
-          <Identicon />
-        </IconWrapper>
-      )
-    } else if (connector === walletconnect) {
-      return (
-        <IconWrapper size={16}>
-          <img src={WalletConnectIcon} alt={'WalletConnect logo'} />
-        </IconWrapper>
-      )
-    } else if (connector === walletlink) {
-      return (
-        <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={'Coinbase Wallet logo'} />
-        </IconWrapper>
-      )
-    } else if (connector === fortmatic) {
-      return (
-        <IconWrapper size={16}>
-          <img src={FortmaticIcon} alt={'Fortmatic logo'} />
-        </IconWrapper>
-      )
-    } else if (connector === portis) {
-      return (
-        <>
-          <IconWrapper size={16}>
-            <img src={PortisIcon} alt={'Portis logo'} />
-            <MainWalletAction
-              onClick={() => {
-                portis.portis.showPortis()
-              }}
-            >
-              <Trans>Show Portis</Trans>
-            </MainWalletAction>
-          </IconWrapper>
-        </>
-      )
-    }
-    return null
-  }
+  // function getStatusIcon() {
+  //   if (connector === injected) {
+  //     return (
+  //       <IconWrapper size={16}>
+  //         <Identicon />
+  //       </IconWrapper>
+  //     )
+  //   } else if (connector === walletconnect) {
+  //     return (
+  //       <IconWrapper size={16}>
+  //         <img src={WalletConnectIcon} alt={'WalletConnect logo'} />
+  //       </IconWrapper>
+  //     )
+  //   } else if (connector === walletlink) {
+  //     return (
+  //       <IconWrapper size={16}>
+  //         <img src={CoinbaseWalletIcon} alt={'Coinbase Wallet logo'} />
+  //       </IconWrapper>
+  //     )
+  //   } else if (connector === fortmatic) {
+  //     return (
+  //       <IconWrapper size={16}>
+  //         <img src={FortmaticIcon} alt={'Fortmatic logo'} />
+  //       </IconWrapper>
+  //     )
+  //   } else if (connector === portis) {
+  //     return (
+  //       <>
+  //         <IconWrapper size={16}>
+  //           <img src={PortisIcon} alt={'Portis logo'} />
+  //           <MainWalletAction
+  //             onClick={() => {
+  //               portis.portis.showPortis()
+  //             }}
+  //           >
+  //             <Trans>Show Portis</Trans>
+  //           </MainWalletAction>
+  //         </IconWrapper>
+  //       </>
+  //     )
+  //   }
+  //   return null
+  // }
 
   const clearAllTransactionsCallback = useCallback(() => {
     if (chainId) dispatch(clearAllTransactions({ chainId }))

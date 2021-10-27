@@ -182,65 +182,39 @@ export default function AddLiquidity({
     console.log('Not Working args', args)
     console.log('Not Working args value', value)
 
-    method(...args, {
-      ...(value ? { value } : {}),
-      gasLimit: calculateGasMargin(chainId, BigNumber.from('0x583c')),
-    })
-      .then((response) => {
-        console.log('response-------------->>>>>>>>>', response)
+    await estimate(...args, value ? { value } : {})
+      .then((estimatedGasLimit) =>
+        method(...args, {
+          ...(value ? { value } : {}),
+          gasLimit: calculateGasMargin(chainId, estimatedGasLimit),
+        }).then((response) => {
+          setAttemptingTxn(false)
+
+          addTransaction(response, {
+            type: TransactionType.ADD_LIQUIDITY_V2_POOL,
+            baseCurrencyId: currencyId(currencyA),
+            expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient.toString() ?? '0',
+            quoteCurrencyId: currencyId(currencyB),
+            expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient.toString() ?? '0',
+          })
+
+          setTxHash(response.hash)
+
+          ReactGA.event({
+            category: 'Liquidity',
+            action: 'Add',
+            label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
+          })
+        })
+      )
+      .catch((error) => {
         setAttemptingTxn(false)
-
-        // addTransaction(response, {
-        //   type: TransactionType.ADD_LIQUIDITY_V2_POOL,
-        //   baseCurrencyId: currencyId(currencyA),
-        //   expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient.toString() ?? '0',
-        //   quoteCurrencyId: currencyId(currencyB),
-        //   expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient.toString() ?? '0',
-        // })
-
-        setTxHash(response.hash)
-
-        // ReactGA.event({
-        //   category: 'Liquidity',
-        //   action: 'Add',
-        //   label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
-        // })
+        console.log('Error is here bleat --->>>>>', error)
+        // we only care if the error is something _other_ than the user rejected the tx
+        if (error?.code !== 4001) {
+          console.error(error)
+        }
       })
-      .catch((e) => console.log('sfasdfadsf->>>', e))
-
-    // await estimate(...args, value ? { value } : {})
-    //   .then((estimatedGasLimit) =>
-    //     method(...args, {
-    //       ...(value ? { value } : {}),
-    //       gasLimit: calculateGasMargin(chainId, estimatedGasLimit),
-    //     }).then((response) => {
-    //       setAttemptingTxn(false)
-
-    //       addTransaction(response, {
-    //         type: TransactionType.ADD_LIQUIDITY_V2_POOL,
-    //         baseCurrencyId: currencyId(currencyA),
-    //         expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient.toString() ?? '0',
-    //         quoteCurrencyId: currencyId(currencyB),
-    //         expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient.toString() ?? '0',
-    //       })
-
-    //       setTxHash(response.hash)
-
-    //       ReactGA.event({
-    //         category: 'Liquidity',
-    //         action: 'Add',
-    //         label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
-    //       })
-    //     })
-    //   )
-    //   .catch((error) => {
-    //     setAttemptingTxn(false)
-    //     console.log('Error is here bleat --->>>>>', error)
-    //     // we only care if the error is something _other_ than the user rejected the tx
-    //     if (error?.code !== 4001) {
-    //       console.error(error)
-    //     }
-    //   })
   }
 
   const modalHeader = () => {

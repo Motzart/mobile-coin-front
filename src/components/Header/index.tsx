@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
-import { CHAIN_INFO, SupportedChainId } from 'constants/chains'
-import useTheme from 'hooks/useTheme'
+import { SupportedChainId } from 'constants/chains'
+//import useTheme from 'hooks/useTheme'
 import { darken } from 'polished'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -9,13 +9,13 @@ import { Text } from 'rebass'
 import { useShowClaimPopup, useToggleSelfClaimModal } from 'state/application/hooks'
 import { useUserHasAvailableClaim } from 'state/claim/hooks'
 import { useUserHasSubmittedClaim } from 'state/transactions/hooks'
-import { useDarkModeManager } from 'state/user/hooks'
+//import { useDarkModeManager } from 'state/user/hooks'
 import { useETHBalances } from 'state/wallet/hooks'
 import styled from 'styled-components/macro'
 
-import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
+//import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
 import { useActiveWeb3React } from '../../hooks/web3'
-import { ExternalLink, TYPE } from '../../theme'
+import { TYPE } from '../../theme'
 import ClaimModal from '../claim/ClaimModal'
 import { CardNoise } from '../earn/styled'
 import Menu from '../Menu'
@@ -23,7 +23,7 @@ import Modal from '../Modal'
 import Row from '../Row'
 import { Dots } from '../swap/styleds'
 import Web3Status from '../Web3Status'
-import NetworkSelector from './NetworkSelector'
+// import NetworkSelector from './NetworkSelector'
 import UniBalanceContent from './UniBalanceContent'
 
 const HeaderFrame = styled.div<{ showBackground: boolean }>`
@@ -176,12 +176,12 @@ const Title = styled.a`
   }
 `
 
-const UniIcon = styled.div`
-  transition: transform 0.3s ease;
-  :hover {
-    transform: rotate(-5deg);
-  }
-`
+// const UniIcon = styled.div`
+//   transition: transform 0.3s ease;
+//   :hover {
+//     transform: rotate(-5deg);
+//   }
+// `
 
 const activeClassName = 'ACTIVE'
 
@@ -215,40 +215,40 @@ const StyledNavLink = styled(NavLink).attrs({
   }
 `
 
-const StyledExternalLink = styled(ExternalLink).attrs({
-  activeClassName,
-})<{ isActive?: boolean }>`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: left;
-  border-radius: 3rem;
-  outline: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: ${({ theme }) => theme.text2};
-  font-size: 1rem;
-  width: fit-content;
-  margin: 0 12px;
-  font-weight: 500;
+// const StyledExternalLink = styled(ExternalLink).attrs({
+//   activeClassName,
+// })<{ isActive?: boolean }>`
+//   ${({ theme }) => theme.flexRowNoWrap}
+//   align-items: left;
+//   border-radius: 3rem;
+//   outline: none;
+//   cursor: pointer;
+//   text-decoration: none;
+//   color: ${({ theme }) => theme.text2};
+//   font-size: 1rem;
+//   width: fit-content;
+//   margin: 0 12px;
+//   font-weight: 500;
 
-  &.${activeClassName} {
-    border-radius: 12px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.text1};
-  }
+//   &.${activeClassName} {
+//     border-radius: 12px;
+//     font-weight: 600;
+//     color: ${({ theme }) => theme.text1};
+//   }
 
-  :hover,
-  :focus {
-    color: ${({ theme }) => darken(0.1, theme.text1)};
-    text-decoration: none;
-  }
-`
+//   :hover,
+//   :focus {
+//     color: ${({ theme }) => darken(0.1, theme.text1)};
+//     text-decoration: none;
+//   }
+// `
 
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
-  const [darkMode] = useDarkModeManager()
-  const { white, black } = useTheme()
+  // const [darkMode] = useDarkModeManager()
+  // const { white, black } = useTheme()
 
   const toggleClaimModal = useToggleSelfClaimModal()
 
@@ -261,7 +261,7 @@ export default function Header() {
 
   const scrollY = useScrollPosition()
 
-  const { infoLink } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
+  // const { infoLink } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
   return (
     <HeaderFrame showBackground={scrollY > 45}>
       <ClaimModal />
@@ -269,9 +269,9 @@ export default function Header() {
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <Title href=".">
-        <UniIcon>
+        {/* <UniIcon>
           <Logo fill={darkMode ? white : black} width="24px" height="100%" title="logo" />
-        </UniIcon>
+        </UniIcon> */}
       </Title>
       <HeaderLinks>
         <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
@@ -279,7 +279,7 @@ export default function Header() {
         </StyledNavLink>
         <StyledNavLink
           id={`pool-nav-link`}
-          to={'/pool'}
+          to={'/pool/v2'}
           isActive={(match, { pathname }) =>
             Boolean(match) ||
             pathname.startsWith('/add') ||
@@ -295,16 +295,16 @@ export default function Header() {
             <Trans>Vote</Trans>
           </StyledNavLink>
         )}
-        <StyledExternalLink id={`charts-nav-link`} href={infoLink}>
+        {/* <StyledExternalLink id={`charts-nav-link`} href={infoLink}>
           <Trans>Charts</Trans>
           <sup>↗</sup>
-        </StyledExternalLink>
+        </StyledExternalLink> */}
       </HeaderLinks>
 
       <HeaderControls>
-        <HeaderElement>
+        {/* <HeaderElement>
           <NetworkSelector />
-        </HeaderElement>
+        </HeaderElement> */}
         <HeaderElement>
           {availableClaim && !showClaimPopup && (
             <UNIWrapper onClick={toggleClaimModal}>

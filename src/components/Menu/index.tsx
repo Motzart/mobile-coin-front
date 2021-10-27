@@ -1,19 +1,20 @@
 // eslint-disable-next-line no-restricted-imports
 import { t } from '@lingui/macro'
 import { Trans } from '@lingui/macro'
-import { CHAIN_INFO, L2_CHAIN_IDS, SupportedChainId } from 'constants/chains'
+//import { CHAIN_INFO, L2_CHAIN_IDS, SupportedChainId } from 'constants/chains'
 import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'constants/locales'
 import { useActiveLocale } from 'hooks/useActiveLocale'
 import { useLocationLinkProps } from 'hooks/useLocationLinkProps'
 import React, { useEffect, useRef, useState } from 'react'
-import { BookOpen, Check, ChevronLeft, Code, Globe, Info, MessageCircle, Moon, PieChart, Sun } from 'react-feather'
+//import { BookOpen, Check, ChevronLeft, Code, Globe, Info, MessageCircle, Moon, PieChart, Sun } from 'react-feather'
+import { Check, ChevronLeft, Globe, Moon, Sun } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useDarkModeManager } from 'state/user/hooks'
 import styled, { css } from 'styled-components/macro'
 
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { useActiveWeb3React } from '../../hooks/web3'
+//import { useActiveWeb3React } from '../../hooks/web3'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
 import { ExternalLink } from '../../theme'
@@ -167,7 +168,7 @@ const ToggleMenuItem = styled.button`
   }
 `
 
-const CODE_LINK = 'https://github.com/Uniswap/uniswap-interface'
+// const CODE_LINK = 'https://github.com/Uniswap/uniswap-interface'
 
 function LanguageMenuItem({ locale, active, key }: { locale: SupportedLocale; active: boolean; key: string }) {
   const { to, onClick } = useLocationLinkProps(locale)
@@ -198,15 +199,17 @@ function LanguageMenu({ close }: { close: () => void }) {
 }
 
 export default function Menu() {
-  const { account, chainId } = useActiveWeb3React()
+  // const { chainId } = useActiveWeb3React()
+  // const { account, chainId } = useActiveWeb3React()
 
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.MENU)
   const toggle = useToggleModal(ApplicationModal.MENU)
   useOnClickOutside(node, open ? toggle : undefined)
   const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-  const showUNIClaimOption = Boolean(!!account && !!chainId && !L2_CHAIN_IDS.includes(chainId))
-  const { infoLink } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
+  // const showUNIClaimOption = Boolean(!!account && !!chainId && !L2_CHAIN_IDS.includes(chainId))
+  const showUNIClaimOption = false
+  // const { infoLink } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
 
   const [darkMode, toggleDarkMode] = useDarkModeManager()
 
@@ -232,7 +235,7 @@ export default function Menu() {
             default:
               return (
                 <MenuFlyout>
-                  <MenuItem href="https://uniswap.org/">
+                  {/* <MenuItem href="https://uniswap.org/">
                     <div>
                       <Trans>About</Trans>
                     </div>
@@ -243,25 +246,25 @@ export default function Menu() {
                       <Trans>Docs</Trans>
                     </div>
                     <BookOpen opacity={0.6} size={16} />
-                  </MenuItem>
-                  <MenuItem href={CODE_LINK}>
+                  </MenuItem> */}
+                  {/* <MenuItem href={CODE_LINK}>
                     <div>
                       <Trans>Code</Trans>
                     </div>
                     <Code opacity={0.6} size={16} />
-                  </MenuItem>
-                  <MenuItem href="https://discord.gg/FCfyBSbCU5">
+                  </MenuItem> */}
+                  {/* <MenuItem href="https://discord.gg/FCfyBSbCU5">
                     <div>
                       <Trans>Discord</Trans>
                     </div>
                     <MessageCircle opacity={0.6} size={16} />
-                  </MenuItem>
-                  <MenuItem href={infoLink}>
+                  </MenuItem> */}
+                  {/* <MenuItem href={infoLink}>
                     <div>
                       <Trans>Analytics</Trans>
                     </div>
                     <PieChart opacity={0.6} size={16} />
-                  </MenuItem>
+                  </MenuItem> */}
                   <ToggleMenuItem onClick={() => setMenu('lang')}>
                     <div>
                       <Trans>Language</Trans>
